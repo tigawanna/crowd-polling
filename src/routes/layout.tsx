@@ -4,6 +4,7 @@ import {
   useHead,
   type LayoutProps,
   type PreloadContext,
+  Link,
 } from "rakkasjs";
 import ErrorBoundaryComponent from "@/components/wrappers/ErrorBoundaryComponent";
 import "./index.css";
@@ -14,6 +15,7 @@ import { usePocketbase } from "@/lib/pb/hooks/use-pb";
 import { LogOut } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import Cookie from "browser-cookies"
+import { FaGithub } from "react-icons/fa";
 
 function MainLayout({ children }: LayoutProps) {
   const qc = useQueryClient();
@@ -40,7 +42,6 @@ function MainLayout({ children }: LayoutProps) {
               )}
             </div>
             <LogOut className="hover:text-error s-ze-4" onClick={logOut} />
-         
           </div>
         )}
         {children}
@@ -48,6 +49,16 @@ function MainLayout({ children }: LayoutProps) {
         <ClientSuspense fallback={<div className="h-8 " />}>
           <Toaster richColors className="" />
         </ClientSuspense>
+        <div className="flex gap-1 py-5">
+          <Link
+            className="link text-secondary hover:link-hover flex items-center justify-center gap-1"
+            target="_blank"
+            href="https://github.com/tigawanna/crowd-polling"
+          >
+            source code
+          <FaGithub className="size-4"/>
+          </Link>{" "}
+        </div>
       </div>
     </ErrorBoundaryComponent>
   );
