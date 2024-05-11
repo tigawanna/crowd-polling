@@ -77,7 +77,7 @@ export function CastAPoll({}: CastAPollProps) {
         disabled={vote_mutation.isPending}
       />
       <SpinnerButton
-        className="md:min-w-fit h-full"
+        className="min-w-fit md:min-w-fit h-full"
         variant={"outline"}
         onClick={() => vote_mutation.mutate()}
         mutation={vote_mutation}

@@ -65,13 +65,13 @@ MainLayout.preload = (ctx: PreloadContext) => {
     "og:description":
       "Fun and exciting online poll to gaige the wsidom of the crowd ", // <meta property="og:description" content="...">
     "og:url": import.meta.url, // <meta property="og:url" content="...">
-    "og:image": "/og-image.png", // <meta property="og:image" content="...">
+    "og:image": "og-image.png", // <meta property="og:image" content="...">
 
     // Twitter shorthands
     "twitter:title": "RenderconKE crowd polling", // <meta name="twitter:title" content="...">
     "twitter:description":
       "Fun and exciting online poll to gaige the wsidom of the crowd ", // <meta name="twitter:description" content="...">
-    "twitter:image": "/og-image.png", // <meta name="twitter:image" content="...">
+    "twitter:image": "og-image.png", // <meta name="twitter:image" content="...">
     "twitter:card": "summary_large_image", // <meta name="twitter:card" content="...">
 
     elements: [

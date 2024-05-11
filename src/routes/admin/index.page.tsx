@@ -8,6 +8,7 @@ export default function AdminPage({}: PageProps) {
       {/* <div className="fixed top-[5%] left-[5%]">
         <AddBulkPollValues />
       </div> */}
+
       <Suspense fallback={<PollsSuspenseFallback/>}>
         <PollValuesCount />
       </Suspense>
