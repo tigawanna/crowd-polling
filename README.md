@@ -15,4 +15,9 @@ FROM "rendercon_crowd_polls"
 GROUP BY value;
 ```
 
-please do't break it as it's just a proof of concept put together ina an afternoon
+please do't break it as it's just a proof of concept put together in an afternoon
+
+todo list
+- add profanity filters
+- add authentication for more accurate votes
+- add other kinds of voting like multiple choice 
