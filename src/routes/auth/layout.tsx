@@ -26,7 +26,7 @@ AuthLayout.preload = (ctx: PreloadContext) => {
     head: {
       title: "RenderconKE crowd poll | Auth",
       description: "RenderconKE polling app authentication",
-      htmlAttributes: { "data-theme": theme },
+     
       elements: [
         {
           tagName: "link",

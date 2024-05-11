@@ -9,13 +9,40 @@ import ErrorBoundaryComponent from "@/components/wrappers/ErrorBoundaryComponent
 import "./index.css";
 import { TailwindIndicator } from "@/components/others/tailwind-indicator";
 import { Toaster } from "@/components/shadcn/ui/sonner";
-import { getSSRFriendlyTheme } from "@/lib/rakkas/theme";
+import { useViewer } from "@/lib/pb/hooks/use-viewer";
+import { usePocketbase } from "@/lib/pb/hooks/use-pb";
+import { LogOut } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import Cookie from "browser-cookies"
 
 function MainLayout({ children }: LayoutProps) {
+  const qc = useQueryClient();
+  const { pb } = usePocketbase();
+  const { data } = useViewer();
+  function logOut() {
+    pb.authStore.clear();
+    Cookie.erase("pb_auth");
+    qc.invalidateQueries({ queryKey: ["viewer"] });
 
+  }
+  console.log({ data });
   return (
     <ErrorBoundaryComponent>
       <div className="flex h-full w-full  flex-col items-center justify-center bg-base-200 ">
+        {data && (
+          <div className="min-w-fit fixed right-[5%] top-[5%] group flex gap-5 justify-center items-center">
+            <div className="w-full flex gap-2 mr-1">
+              {data?.username}
+              {data?.isAdmin ? (
+                <div className="text-success h-4 w-4 rounded-xl">active</div>
+              ) : (
+                <div className="text-warning h-4 w-4 rounded-xl">not</div>
+              )}
+            </div>
+            <LogOut className="hover:text-error s-ze-4" onClick={logOut} />
+         
+          </div>
+        )}
         {children}
         <TailwindIndicator />
         <ClientSuspense fallback={<div className="h-8 " />}>
@@ -26,13 +53,13 @@ function MainLayout({ children }: LayoutProps) {
   );
 }
 MainLayout.preload = (ctx: PreloadContext) => {
-  const theme = getSSRFriendlyTheme(ctx.requestContext);
+  // const theme = getSSRFriendlyTheme(ctx.requestContext);
   const documentHead: HeadProps = {
     title: "RenderconKE crowd polling",
 
     description:
       "Fun and exciting online poll to gaige the wsidom of the crowd ",
-    htmlAttributes: { "data-theme": theme },
+    htmlAttributes: { "data-theme": "black" },
     // Open Graph shorthands
     "og:title": "RenderconKE crowd polling", // <meta property="og:title" content="...">
     "og:description":
@@ -54,7 +81,6 @@ MainLayout.preload = (ctx: PreloadContext) => {
         type: "image/svg+xml",
         href: "/site.svg",
       },
-      
     ],
     // htmlAttributes:{ "data-theme":"dark" }
   };

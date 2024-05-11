@@ -62,7 +62,7 @@ export function PollValuesCount({}: PollValuesCountProps) {
           return (
             <li
               key={d.id}
-              className="w-fit border-4 cursor-pointer border-secondary hover:transition-colors hover:bg-secondary/50 p-1 rounded-lg gap-3 flex justify-center items-center"
+              className="w-fit border cursor-pointer border-secondary hover:transition-colors hover:bg-secondary/50 p-1 rounded-lg gap-3 flex justify-center items-center"
             >
               <Minus
                 className="size-4 hover:text-primary"

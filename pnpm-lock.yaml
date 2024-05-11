@@ -113,6 +113,9 @@ dependencies:
   '@vitejs/plugin-react':
     specifier: ^4.2.1
     version: 4.2.1(vite@5.1.6)
+  browser-cookies:
+    specifier: ^1.2.0
+    version: 1.2.0
   chart.js:
     specifier: ^4.3.0
     version: 4.4.2
@@ -137,6 +140,9 @@ dependencies:
   devalue:
     specifier: ^4.3.2
     version: 4.3.2
+  jscookie:
+    specifier: ^1.1.0
+    version: 1.1.0
   lexical:
     specifier: ^0.14.5
     version: 0.14.5
@@ -3963,6 +3969,10 @@ packages:
       fill-range: 7.0.1
     dev: true
 
+  /browser-cookies@1.2.0:
+    resolution: {integrity: sha512-cg2WuoOJo+F+g2XjEaP8nmeRp1vDHjt7sqpKJMsTNXKrpyIBNVslYJeehvs6FEddj8usV2+qyRSBEX244yN5/g==}
+    dev: false
+
   /browserslist@4.23.0:
     resolution: {integrity: sha512-QW8HiM1shhT2GuzkvklfjcKDiWFXHOeFCIA/huJPwHsslwcydgk7X+z2zXpEijP98UCY7HbubZt5J2Zgvf0CaQ==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
@@ -5576,6 +5586,10 @@ packages:
     dependencies:
       argparse: 2.0.1
     dev: true
+
+  /jscookie@1.1.0:
+    resolution: {integrity: sha512-gicBA4BI3iVGPRTtRfWJE+20Oc+JzMR7oP2YiLjbvtDXOlihD5qM7l5hUopvdmqqgMhEuvDa3fsLd+SyGf2/hA==}
+    dev: false
 
   /jsesc@2.5.2:
     resolution: {integrity: sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==}

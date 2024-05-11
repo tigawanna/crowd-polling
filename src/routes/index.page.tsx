@@ -4,6 +4,7 @@ import {
   PollsWordCloud,
 } from "./_components/polls/Polls";
 import { Suspense } from "react";
+import { CastAPoll } from "./_components/polls/CastAPoll";
 
 export default function HomePage({}: PageProps) {
   return (
@@ -17,6 +18,7 @@ export default function HomePage({}: PageProps) {
       <Suspense fallback={<PollsSuspenseFallback />}>
         <PollsWordCloud />
       </Suspense>
+      <CastAPoll/>
     </main>
   );
 }
