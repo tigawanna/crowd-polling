@@ -18,7 +18,6 @@ export default function HomePage({}: PageProps) {
       <Suspense fallback={<PollsSuspenseFallback />}>
         <PollsWordCloud />
       </Suspense>
-      <CastAPoll/>
     </main>
   );
 }

@@ -3,6 +3,7 @@ import { pbTryCatchWrapper } from "@/lib/pb/utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ClientSuspense } from "rakkasjs";
 import { lazy } from "react";
+import { CastAPoll } from "./CastAPoll";
 const ChartJSWordCloud = lazy(() => import("./ChartJSWordCloud"));
 interface PollsWordCloudProps {
 
@@ -30,11 +31,10 @@ export function PollsWordCloud({  }: PollsWordCloudProps) {
   const data = query?.data??[]
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-      <ClientSuspense
-        fallback={<PollsSuspenseFallback/>}
-      >
-      <ChartJSWordCloud data_list={data} />
+      <ClientSuspense fallback={<PollsSuspenseFallback />}>
+        <ChartJSWordCloud data_list={data} />
       </ClientSuspense>
+      <CastAPoll />
     </div>
   );
 }

@@ -1,7 +1,10 @@
+import { Button } from "@/components/shadcn/ui/button";
 import { usePocketbase } from "@/lib/pb/hooks/use-pb";
 import { pbTryCatchWrapper } from "@/lib/pb/utils";
+import { useSearchParams } from "@/lib/rakkas/hooks/use-search-params";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
-import { Minus, Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight, Minus, Plus } from "lucide-react";
+import { navigate, useLocation } from "rakkasjs";
 
 interface PollValuesCountProps {}
 
@@ -17,7 +20,22 @@ type PollMutationButton = IncrementMutationButton | DecrementMutationButton;
 
 export function PollValuesCount({}: PollValuesCountProps) {
   const { pb } = usePocketbase();
+  const { current } = useLocation();
+  const page = useSearchParams({
+    default_value: "1",
+    key: "page",
+  });
+  function changePage(direction: "+" | "-", currentPage: number) {
+    if (currentPage < 1) return;
+    const url = new URL(current);
+    if (direction === "+") {
+      url.searchParams.set("page", String(currentPage + 1));
+      navigate(url);
+    }
 
+    url.searchParams.set("page", String(currentPage - 1));
+    navigate(url);
+  }
   const mutate = useMutation({
     mutationFn: (vars: PollMutationButton) => {
       if (vars.action === "+") {
@@ -39,10 +57,10 @@ export function PollValuesCount({}: PollValuesCountProps) {
     },
   });
   const query = useSuspenseQuery({
-    queryKey: ["poll_values_count"],
+    queryKey: ["poll_values_count","list-view",page],
     queryFn: () =>
       pbTryCatchWrapper(
-        pb.from("rendercon_crowd_polls_count").getList(1, 100, {
+        pb.from("rendercon_crowd_polls_count").getList(+page, 30, {
           sort: "+value",
         }),
       ),
@@ -62,13 +80,16 @@ export function PollValuesCount({}: PollValuesCountProps) {
           return (
             <li
               key={d.id}
-              className="w-fit border cursor-pointer border-secondary hover:transition-colors hover:bg-secondary/50 p-1 rounded-lg gap-3 flex justify-center items-center"
+              className="w-fit text-lg border cursor-pointer border-secondary hover:transition-colors hover:bg-secondary/10 p-1 rounded-lg gap-3 flex justify-center items-center"
             >
               <Minus
                 className="size-4 hover:text-primary"
                 onClick={() => mutate.mutate({ action: "-", id: d.id })}
               />
-              {d.value} {d.count}
+              <span>
+                {d.value} {d.count}
+              </span>
+
               <Plus
                 className="size-4 hover:text-primary"
                 onClick={() => mutate.mutate({ action: "+", value: d.value })}
@@ -80,6 +101,28 @@ export function PollValuesCount({}: PollValuesCountProps) {
           );
         })}
       </ul>
+      <div className="w-full flex justify-between p-2">
+        <Button
+          variant={"outline"}
+          onClick={() => changePage("-", +page)}
+          disabled={query.isPending || +page <= 1}
+          type="button"
+        >
+          <ChevronLeft />
+          Prev
+        </Button>
+        {query.data?.data?.totalPages && (
+          <Button
+            variant={"outline"}
+            disabled={query.isPending || +page > query?.data?.data?.totalPages}
+            onClick={() => changePage("+", +page)}
+            type="button"
+          >
+            Next
+            <ChevronRight />
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
